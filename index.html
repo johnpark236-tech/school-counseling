@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>백석어학원 기초상담일지</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f4f4f9; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h2 { text-align: center; border-bottom: 2px solid #003366; padding-bottom: 10px; color: #003366; }
+        .form-group { margin-bottom: 15px; }
+        label { font-weight: bold; display: block; margin-bottom: 5px; }
+        input[type="text"], input[type="date"] { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+        .radio-group { margin-bottom: 15px; }
+        .radio-group label { display: inline-block; font-weight: normal; margin-right: 15px; }
+        canvas { border: 1px solid #000; background-color: #fff; border-radius: 4px; cursor: crosshair; touch-action: none; /* 모바일 스크롤 방지 */ }
+        .btn-submit { display: block; width: 100%; padding: 15px; background-color: #003366; color: white; border: none; border-radius: 4px; font-size: 18px; cursor: pointer; margin-top: 20px; }
+        .btn-submit:hover { background-color: #002244; }
+        .signature-controls { margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>백석어학원 기초상담일지</h2>
+    
+    <form id="counselingForm">
+        <div class="form-group"><label>이름 (한글)</label><input type="text" id="nameKr" required></div>
+        <div class="form-group"><label>이름 (영문)</label><input type="text" id="nameEn" required></div>
+        <div class="form-group"><label>생년월일</label><input type="date" id="birthDate" required></div>
+        
+        <div class="radio-group">
+            <label>성별:</label>
+            <label><input type="radio" name="gender" value="남자" required> 남자</label>
+            <label><input type="radio" name="gender" value="여자"> 여자</label>
+        </div>
+
+        <div class="form-group"><label>국적 (나라)</label><input type="text" id="country" required></div>
+        
+        <div class="form-group"><label>취미</label><input type="text" id="hobby"></div>
+        <div class="form-group"><label>종교</label><input type="text" id="religion"></div>
+        
+        <div class="form-group"><label>전화번호</label><input type="text" id="phone" required></div>
+        <div class="form-group"><label>KakaoTalk ID</label><input type="text" id="kakao"></div>
+
+        <hr>
+
+        <div class="form-group">
+            <label>■ 정기 상담 메모</label>
+            <input type="text" id="memo">
+        </div>
+
+        <hr>
+
+        <div class="form-group">
+            <label>서명 (아래 네모 칸에 마우스나 손가락으로 사인해 주세요)</label>
+            <div class="signature-controls">
+                <button type="button" onclick="clearSignature()">서명 지우기</button>
+            </div>
+            <canvas id="signaturePad" width="400" height="150"></canvas>
+        </div>
+
+        <button type="submit" class="btn-submit">제출하기</button>
+    </form>
+</div>
+
+<script>
+    // 주의: 구글에서 새로 배포 후 얻은 '새 웹 앱 URL'을 아래에 반드시 붙여넣으셔야 합니다!
+    const SCRIPT_URL = "여기에_구글_웹앱_URL을_붙여넣으세요";
+
+    // 서명 패드 (Canvas) 설정
+    const canvas = document.getElementById('signaturePad');
+    const ctx = canvas.getContext('2d');
+    let isDrawing = false;
+
+    // 마우스 및 터치 이벤트 연결
+    canvas.addEventListener('mousedown', startDrawing);
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('mouseup', stopDrawing);
+    canvas.addEventListener('mouseout', stopDrawing);
+    canvas.addEventListener('touchstart', startDrawing, {passive: false});
+    canvas.addEventListener('touchmove', draw, {passive: false});
+    canvas.addEventListener('touchend', stopDrawing);
+
+    function getCoordinates(e) {
+        const rect = canvas.getBoundingClientRect();
+        if(e.touches && e.touches.length > 0) {
+            return { x: e.touches[0].clientX - rect.left, y: e.touches[0].clientY - rect.top };
+        }
+        return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+    }
+
+    function startDrawing(e) {
+        e.preventDefault();
+        isDrawing = true;
+        const coords = getCoordinates(e);
+        ctx.beginPath();
+        ctx.moveTo(coords.x, coords.y);
+    }
+
+    function draw(e) {
+        if (!isDrawing) return;
+        e.preventDefault();
+        const coords = getCoordinates(e);
+        ctx.lineTo(coords.x, coords.y);
+        ctx.stroke();
+    }
+
+    function stopDrawing() { isDrawing = false; }
+    
+    function clearSignature() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
+
+    // 폼 제출 처리
+    document.getElementById('counselingForm').addEventListener('submit', function(e) {
+        e.preventDefault(); // 페이지 새로고침 방지
+
+        // 라디오 버튼 값 가져오기용 헬퍼 함수
+        const getRadioVal = (name) => {
+            const ele = document.querySelector(`input[name="${name}"]:checked`);
+            return ele ? ele.value : "";
+        }
+
+        // 서명을 이미지 데이터로 변환
+        const signatureData = canvas.toDataURL(); 
+
+        // 새롭게 변경된 데이터 구조에 맞게 항목 전송
+        const formData = {
+            nameKr: document.getElementById('nameKr').value,
+            nameEn: document.getElementById('nameEn').value,
+            birthDate: document.getElementById('birthDate').value,
+            gender: getRadioVal('gender'),
+            country: document.getElementById('country').value,
+            hobby: document.getElementById('hobby').value,       // 취미
+            religion: document.getElementById('religion').value, // 종교
+            phone: document.getElementById('phone').value,
+            kakao: document.getElementById('kakao').value,
+            memo: document.getElementById('memo').value,
+            signature: signatureData
+        };
+
+        alert("데이터를 전송 중입니다. 잠시만 기다려주세요...");
+
+        // 구글 스크립트로 데이터 전송
+        fetch(SCRIPT_URL, {
+            method: 'POST',
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.result === 'success') {
+                alert("제출이 완료되었습니다!");
+                document.getElementById('counselingForm').reset();
+                clearSignature();
+            } else {
+                alert("오류가 발생했습니다: " + data.message);
+            }
+        })
+        .catch(error => {
+            alert("네트워크 오류가 발생했습니다.");
+            console.error('Error:', error);
+        });
+    });
+</script>
+
+</body>
+</html>
