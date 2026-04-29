@@ -15,8 +15,9 @@
         .form-group { margin-bottom: 15px; }
         label { font-weight: bold; display: block; margin-bottom: 5px; }
         input[type="text"], input[type="date"] { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
-        .radio-group { margin-bottom: 15px; }
+        .radio-group { margin-bottom: 15px; line-height: 1.8; }
         .radio-group label { display: inline-block; font-weight: normal; margin-right: 15px; }
+        .inline-input { width: 120px !important; border-top: none !important; border-left: none !important; border-right: none !important; border-radius: 0 !important; background: transparent; padding: 2px 5px !important; }
         canvas { border: 1px solid #000; background-color: #fff; border-radius: 4px; cursor: crosshair; touch-action: none; width: 100%; max-width: 400px; }
         .btn-submit { display: block; width: 100%; padding: 15px; background-color: #003366; color: white; border: none; border-radius: 4px; font-size: 18px; cursor: pointer; margin-top: 20px; }
         .btn-submit:hover { background-color: #002244; }
@@ -34,7 +35,7 @@
         <button class="lang-btn" onclick="changeLanguage('en', this)">English</button>
     </div>
 
-    <h2 data-key="title">백석어학원 기초일지</h2>
+    <h2 data-key="title">백석어학원 기초상담일지</h2>
     
     <form id="counselingForm">
         <div class="form-group"><label data-key="nameKr">이름 (한글)</label><input type="text" id="nameKr" required></div>
@@ -51,12 +52,84 @@
         <div class="form-group"><label data-key="hobby">취미</label><input type="text" id="hobby"></div>
         <div class="form-group"><label data-key="religion">종교</label><input type="text" id="religion"></div>
         <div class="form-group"><label data-key="phone">전화번호</label><input type="text" id="phone" required></div>
-        <div class="form-group"><label data-key="kakao">KakaoTalk ID</label><input type="text" id="kakao"></div>
+        <div class="form-group"><label data-key="kakao">상담메모(KakaoTalk ID)</label><input type="text" id="kakao"></div>
+
+        <hr>
+        <h3 style="color: #333;" data-key="counselingSection">■ 상담 내용</h3>
+        
+        <div class="form-group">
+            <label data-key="q1">1. 지금 어디에서 살아요?</label>
+            <div class="radio-group">
+                <label><input type="radio" name="q1" value="기숙사" required> <span data-key="q1_1">기숙사</span></label>
+                <label><input type="radio" name="q1" value="기타"> <span data-key="other">기타</span>( <input type="text" id="q1_other" class="inline-input"> )</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label data-key="q2">2. 몇 급까지 공부했어요?</label>
+            <div class="radio-group">
+                <label><input type="radio" name="q2" value="안했어요" required> <span data-key="q2_1">안했어요</span></label>
+                <label><input type="radio" name="q2" value="1급"> 1급</label>
+                <label><input type="radio" name="q2" value="2급"> 2급</label>
+                <label><input type="radio" name="q2" value="3급"> 3급</label>
+                <label><input type="radio" name="q2" value="4급"> 4급</label>
+                <label><input type="radio" name="q2" value="5급"> 5급</label>
+                <label><input type="radio" name="q2" value="6급"> 6급</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label data-key="q3">3. 왜 한국어를 공부해요?</label>
+            <div class="radio-group">
+                <label><input type="radio" name="q3" value="대학교 입학" required> <span data-key="q3_1">대학교 입학</span></label>
+                <label><input type="radio" name="q3" value="한국에서 일"> <span data-key="q3_2">한국에서 일</span></label>
+                <label><input type="radio" name="q3" value="기타"> <span data-key="other">기타</span>( <input type="text" id="q3_other" class="inline-input"> )</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label data-key="q4">4. 학비는 누가 내요?</label>
+            <div class="radio-group">
+                <label><input type="radio" name="q4" value="부모님" required> <span data-key="q4_1">부모님</span></label>
+                <label><input type="radio" name="q4" value="나"> <span data-key="q4_2">나</span></label>
+                <label><input type="radio" name="q4" value="기타"> <span data-key="other">기타</span>( <input type="text" id="q4_other" class="inline-input"> )</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label data-key="q5">5. 한국어 공부할 때 무엇이 가장 어려워요?</label>
+            <div class="radio-group">
+                <label><input type="radio" name="q5" value="문법" required> <span data-key="q5_1">문법</span></label>
+                <label><input type="radio" name="q5" value="읽기"> <span data-key="q5_2">읽기</span></label>
+                <label><input type="radio" name="q5" value="쓰기"> <span data-key="q5_3">쓰기</span></label>
+                <label><input type="radio" name="q5" value="듣기"> <span data-key="q5_4">듣기</span></label>
+                <label><input type="radio" name="q5" value="말하기"> <span data-key="q5_5">말하기</span></label>
+                <label><input type="radio" name="q5" value="기타"> <span data-key="other">기타</span>( <input type="text" id="q5_other" class="inline-input"> )</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label data-key="q6">6. 아픈 곳이 있어요?</label>
+            <div class="radio-group">
+                <label><input type="radio" name="q6" value="건강해요" required> <span data-key="q6_1">건강해요</span></label>
+                <label><input type="radio" name="q6" value="네, 아파요"> <span data-key="q6_2">네, 아파요</span>( <input type="text" id="q6_other" class="inline-input"> )</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label data-key="q7">7. TOPIK 급수가 있어요?</label>
+            <div class="radio-group">
+                <label><input type="radio" name="q7" value="없어요" required> <span data-key="q7_1">없어요</span></label>
+                <label><input type="radio" name="q7" value="2급"> 2급</label>
+                <label><input type="radio" name="q7" value="3급"> 3급</label>
+                <label><input type="radio" name="q7" value="4급"> 4급</label>
+                <label><input type="radio" name="q7" value="5급"> 5급</label>
+                <label><input type="radio" name="q7" value="6급"> 6급</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label data-key="q8">8. 하고 싶은 말이 있어요?</label>
+            <input type="text" id="q8">
+        </div>
 
         <hr>
 
         <div class="form-group">
-            <label data-key="memoLabel">■ 상담 메모</label>
+            <label data-key="memoLabel">■ 정기 상담</label>
             <input type="text" id="memo">
         </div>
 
@@ -75,8 +148,8 @@
 </div>
 
 <script>
-    // 구글 스크립트 웹 앱 URL
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwWF8o1DrrDaFKQgtT23erUc7BjqBgHcg6t18IJ2VM_88i-njuRthauHdvrIR4s4pOA/exec";
+    // ★ 주의: 만약 웹 앱 새 배포 시 주소가 바뀌었다면 이 URL을 교체해주세요!
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwWF8o1DrrDaFKQgtT23erUc7BjqBgHcg6t18IJ2VM_88i-njuRthauHdvrlR4s4pOA/exec";
 
     const dict = {
         title: { ko: "백석어학원 기초상담일지", vi: "Nhật ký tư vấn cơ bản", uz: "Asosiy maslahat jurnali", mn: "Үндсэн зөвлөгөөний тэмдэглэл", en: "Basic Counseling Log" },
@@ -90,14 +163,41 @@
         hobby: { ko: "취미", vi: "Sở thích", uz: "Qiziqishlari", mn: "Хобби", en: "Hobby" },
         religion: { ko: "종교", vi: "Tôn giáo", uz: "Dini", mn: "Шашин", en: "Religion" },
         phone: { ko: "전화번호", vi: "Số điện thoại", uz: "Telefon raqami", mn: "Утасны дугаар", en: "Phone Number" },
-        kakao: { ko: "KakaoTalk ID" },
-        memoLabel: { ko: "■ 상담 메모", vi: "■ Ghi chú tư vấn định kỳ", uz: "■ Doimiy maslahat eslatmasi", mn: "■ Тогтмол зөвлөгөөний тэмдэглэл", en: "■ Regular Counseling Memo" },
+        kakao: { ko: "상담메모(KakaoTalk ID)", vi: "Ghi chú tư vấn (KakaoTalk ID)", uz: "Maslahat eslatmasi (KakaoTalk ID)", mn: "KakaoTalk ID", en: "KakaoTalk ID" },
+        
+        // 새로 추가된 번역
+        counselingSection: { ko: "■ 상담 내용", vi: "■ Nội dung tư vấn", uz: "■ Maslahat mazmuni", mn: "■ Зөвлөгөөний агуулга", en: "■ Counseling Content" },
+        q1: { ko: "1. 지금 어디에서 살아요?", vi: "1. Bạn đang sống ở đâu?", uz: "1. Hozir qayerda yashaysiz?", mn: "1. Одоо хаана амьдарч байна вэ?", en: "1. Where do you live now?" },
+        q1_1: { ko: "기숙사", vi: "Ký túc xá", uz: "Yotoqxona", mn: "Дотуур байр", en: "Dormitory" },
+        other: { ko: "기타", vi: "Khác", uz: "Boshqa", mn: "Бусад", en: "Other" },
+        q2: { ko: "2. 몇 급까지 공부했어요?", vi: "2. Bạn đã học đến cấp độ nào?", uz: "2. Qaysi darajagacha o'qidingiz?", mn: "2. Хэддүгээр түвшин хүртэл сурсан бэ?", en: "2. What level did you study up to?" },
+        q2_1: { ko: "안했어요", vi: "Chưa học", uz: "O'qimaganman", mn: "Сураагүй", en: "Didn't study" },
+        q3: { ko: "3. 왜 한국어를 공부해요?", vi: "3. Tại sao bạn học tiếng Hàn?", uz: "3. Nima uchun koreys tilini o'rganyapsiz?", mn: "3. Яагаад солонгос хэл сурч байгаа вэ?", en: "3. Why do you study Korean?" },
+        q3_1: { ko: "대학교 입학", vi: "Nhập học đại học", uz: "Universitetga kirish", mn: "Их сургуульд элсэх", en: "University admission" },
+        q3_2: { ko: "한국에서 일", vi: "Làm việc tại Hàn Quốc", uz: "Koreyada ishlash", mn: "Солонгост ажиллах", en: "Work in Korea" },
+        q4: { ko: "4. 학비는 누가 내요?", vi: "4. Ai trả học phí?", uz: "4. O'qish pulini kim to'laydi?", mn: "4. Сургалтын төлбөрөө хэн төлдөг вэ?", en: "4. Who pays the tuition?" },
+        q4_1: { ko: "부모님", vi: "Bố mẹ", uz: "Ota-onam", mn: "Эцэг эх", en: "Parents" },
+        q4_2: { ko: "나", vi: "Tôi", uz: "O'zim", mn: "Би өөрөө", en: "Me" },
+        q5: { ko: "5. 한국어 공부할 때 무엇이 가장 어려워요?", vi: "5. Khi học tiếng Hàn điều gì khó nhất?", uz: "5. Koreys tilini o'rganishda nima eng qiyin?", mn: "5. Солонгос хэл сурахад юу хамгийн хэцүү вэ?", en: "5. What is the hardest part of studying Korean?" },
+        q5_1: { ko: "문법", vi: "Ngữ pháp", uz: "Grammatika", mn: "Дүрэм", en: "Grammar" },
+        q5_2: { ko: "읽기", vi: "Đọc", uz: "O'qish", mn: "Унших", en: "Reading" },
+        q5_3: { ko: "쓰기", vi: "Viết", uz: "Yozish", mn: "Бичих", en: "Writing" },
+        q5_4: { ko: "듣기", vi: "Nghe", uz: "Tinglash", mn: "Сонсох", en: "Listening" },
+        q5_5: { ko: "말하기", vi: "Nói", uz: "Gapirish", mn: "Ярих", en: "Speaking" },
+        q6: { ko: "6. 아픈 곳이 있어요?", vi: "6. Bạn có bị đau ở đâu không?", uz: "6. Kasal joyingiz bormi?", mn: "6. Өвдсөн газар байгаа юу?", en: "6. Are you sick anywhere?" },
+        q6_1: { ko: "건강해요", vi: "Tôi khỏe", uz: "Sog'lomman", mn: "Эрүүл", en: "I'm healthy" },
+        q6_2: { ko: "네, 아파요", vi: "Vâng, bị đau", uz: "Ha, og'riyapti", mn: "Тийм ээ, өвдөж байна", en: "Yes, it hurts" },
+        q7: { ko: "7. TOPIK 급수가 있어요?", vi: "7. Bạn có cấp độ TOPIK không?", uz: "7. TOPIK darajangiz bormi?", mn: "7. TOPIK зэрэгтэй юу?", en: "7. Do you have a TOPIK level?" },
+        q7_1: { ko: "없어요", vi: "Không có", uz: "Yo'q", mn: "Байхгүй", en: "No" },
+        q8: { ko: "8. 하고 싶은 말이 있어요?", vi: "8. Bạn có lời gì muốn nói không?", uz: "8. Aytmoqchi bo'lgan gapingiz bormi?", mn: "8. Хэлэхийг хүссэн зүйл байна уу?", en: "8. Anything you want to say?" },
+
+        memoLabel: { ko: "■ 정기 상담", vi: "■ Tư vấn định kỳ", uz: "■ Doimiy maslahat", mn: "■ Тогтмол зөвлөгөө", en: "■ Regular Counseling" },
         signLabel: { ko: "서명 (아래 네모 칸에 마우스나 손가락으로 사인해 주세요)", vi: "Chữ ký (Vui lòng ký bằng ngón tay vào ô bên dưới)", uz: "Imzo (Quyidagi maydonga barmog'ingiz bilan imzo cheking)", mn: "Гарын үсэг (Доорх нүдэнд хуруугаараа зурна уу)", en: "Signature (Please sign in the box below)" },
         signClear: { ko: "서명 지우기", vi: "Xóa chữ ký", uz: "Imzoni o'chirish", mn: "Гарын үсэг арилгах", en: "Clear Signature" },
         submitBtn: { ko: "제출하기", vi: "Gửi đi", uz: "Yuborish", mn: "Илгээх", en: "Submit" }
     };
 
-    let currentLangName = "한국어"; // 기본값 설정
+    let currentLangName = "한국어"; 
 
     function changeLanguage(lang, btnElement) {
         document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
@@ -149,10 +249,22 @@
             const ele = document.querySelector(`input[name="${name}"]:checked`);
             return ele ? ele.value : "";
         }
+        
+        // '기타' 입력값을 함께 묶어주는 스마트 함수
+        const getRadioWithOther = (name, otherId) => {
+            const ele = document.querySelector(`input[name="${name}"]:checked`);
+            if (!ele) return "";
+            if (ele.value === '기타' || ele.value === '네, 아파요') {
+                const otherVal = document.getElementById(otherId).value;
+                return ele.value + (otherVal ? " (" + otherVal + ")" : "");
+            }
+            return ele.value;
+        };
+
         const signatureData = canvas.toDataURL(); 
 
         const formData = {
-            language: currentLangName || "한국어", // ★ 수정: 혹시라도 값이 날아가면 무조건 한국어로 묶어서 보냅니다.
+            language: currentLangName || "한국어", 
             nameKr: document.getElementById('nameKr').value,
             nameEn: document.getElementById('nameEn').value,
             birthDate: document.getElementById('birthDate').value,
@@ -162,6 +274,16 @@
             religion: document.getElementById('religion').value, 
             phone: document.getElementById('phone').value,
             kakao: document.getElementById('kakao').value,
+            // 새로 추가된 질문 8개 데이터 묶기
+            q1: getRadioWithOther('q1', 'q1_other'),
+            q2: getRadioVal('q2'),
+            q3: getRadioWithOther('q3', 'q3_other'),
+            q4: getRadioWithOther('q4', 'q4_other'),
+            q5: getRadioWithOther('q5', 'q5_other'),
+            q6: getRadioWithOther('q6', 'q6_other'),
+            q7: getRadioVal('q7'),
+            q8: document.getElementById('q8').value,
+            
             memo: document.getElementById('memo').value,
             signature: signatureData
         };
