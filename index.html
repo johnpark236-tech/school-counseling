@@ -7,13 +7,10 @@
     <style>
         body { font-family: sans-serif; background-color: #f4f4f9; padding: 20px; }
         .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        
-        /* 언어 선택 버튼 스타일 */
         .lang-buttons { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 25px; }
         .lang-btn { padding: 8px 12px; background-color: #e0e0e0; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; color: #333; font-weight: bold; }
         .lang-btn:hover { background-color: #d0d0d0; }
         .lang-btn.active { background-color: #003366; color: white; }
-
         h2 { text-align: center; border-bottom: 2px solid #003366; padding-bottom: 10px; color: #003366; }
         .form-group { margin-bottom: 15px; }
         label { font-weight: bold; display: block; margin-bottom: 5px; }
@@ -51,17 +48,15 @@
         </div>
 
         <div class="form-group"><label data-key="country">국적 (나라)</label><input type="text" id="country" required></div>
-        
         <div class="form-group"><label data-key="hobby">취미</label><input type="text" id="hobby"></div>
         <div class="form-group"><label data-key="religion">종교</label><input type="text" id="religion"></div>
-        
         <div class="form-group"><label data-key="phone">전화번호</label><input type="text" id="phone" required></div>
-        <div class="form-group"><label data-key="kakao">KakaoTalk ID</label><input type="text" id="kakao"></div>
+        <div class="form-group"><label data-key="kakao">상담메모(KakaoTalk ID)</label><input type="text" id="kakao"></div>
 
         <hr>
 
         <div class="form-group">
-            <label data-key="memoLabel">■ 상담 메모</label>
+            <label data-key="memoLabel">■ 정기 상담 메모</label>
             <input type="text" id="memo">
         </div>
 
@@ -81,64 +76,38 @@
 
 <script>
     // 구글 스크립트 웹 앱 URL
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwWF8o1DrrDaFKQgtT23erUc7BjqBgHcg6t18IJ2VM_88i-njuRthauHdvrIR4s4pOA/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwWF8o1DrrDaFKQgtT23erUc7BjqBgHcg6t18IJ2VM_88i-njuRthauHdvrlR4s4pOA/exec";
 
-    // 번역 데이터 사전
     const dict = {
-        title: { 
-            ko: "백석어학원 기초상담일지", 
-            vi: "Nhật ký tư vấn cơ bản", 
-            uz: "Asosiy maslahat jurnali", 
-            mn: "Үндсэн зөвлөгөөний тэмдэглэл", 
-            en: "Basic Counseling Log" 
-        },
+        title: { ko: "백석어학원 기초상담일지", vi: "Nhật ký tư vấn cơ bản", uz: "Asosiy maslahat jurnali", mn: "Үндсэн зөвлөгөөний тэмдэглэл", en: "Basic Counseling Log" },
         nameKr: { ko: "이름 (한글)", vi: "Tên (tiếng Hàn)", uz: "Ism (Koreys tilida)", mn: "Нэр (Солонгос хэлээр)", en: "Name (Korean)" },
         nameEn: { ko: "이름 (영문)", vi: "Tên (tiếng Anh)", uz: "Ism (Ingliz tilida)", mn: "Нэр (Англиар)", en: "Name (English)" },
         birthDate: { ko: "생년월일", vi: "Ngày sinh", uz: "Tug'ilgan sana", mn: "Төрсөн он сар өдөр", en: "Date of Birth" },
         genderLabel: { ko: "성별:", vi: "Giới tính:", uz: "Jinsi:", mn: "Хүйс:", en: "Gender:" },
         genderMale: { ko: "남자", vi: "Nam", uz: "Erkak", mn: "Эрэгтэй", en: "Male" },
         genderFemale: { ko: "여자", vi: "Nữ", uz: "Ayol", mn: "Эмэгтэй", en: "Female" },
-        country: { 
-            ko: "국적 (나라)", 
-            vi: "Quốc tịch", 
-            uz: "Millati (Davlat)", 
-            mn: "Иргэншил (Улс)", 
-            en: "Nationality (Country)" 
-        },
+        country: { ko: "국적 (나라)", vi: "Quốc tịch", uz: "Millati (Davlat)", mn: "Харьяалал (Улс)", en: "Nationality (Country)" },
         hobby: { ko: "취미", vi: "Sở thích", uz: "Qiziqishlari", mn: "Хобби", en: "Hobby" },
         religion: { ko: "종교", vi: "Tôn giáo", uz: "Dini", mn: "Шашин", en: "Religion" },
         phone: { ko: "전화번호", vi: "Số điện thoại", uz: "Telefon raqami", mn: "Утасны дугаар", en: "Phone Number" },
-        kakao: { 
-            ko: "KakaoTalk ID", 
-            vi: "KakaoTalk ID", 
-            uz: "KakaoTalk ID", 
-            mn: "KakaoTalk ID", 
-            en: "KakaoTalk ID" 
-        },
-        memoLabel: { 
-            ko: "■ 상담 메모", 
-            vi: "■ Ghi chú tư vấn", 
-            uz: "■ Maslahat eslatmasi", 
-            mn: "■ Зөвлөгөөний тэмдэглэл", 
-            en: "■ Counseling Memo" 
-        },
-        signLabel: { 
-            ko: "서명 (아래 네모 칸에 마우스나 손가락으로 사인해 주세요)", 
-            vi: "Chữ ký (Vui lòng dùng chuột hoặc ngón tay để ký vào ô bên dưới)", 
-            uz: "Imzo (Quyidagi maydonga sichqoncha yoki barmog'ingiz bilan imzo cheking)", 
-            mn: "Гарын үсэг (Доорх нүдэнд хулгана эсвэл хуруугаараа зурна уу)", 
-            en: "Signature (Please sign in the box below using your mouse or finger)" 
-        },
+        kakao: { ko: "상담메모(KakaoTalk ID)", vi: "Ghi chú tư vấn (KakaoTalk ID)", uz: "Maslahat eslatmasi (KakaoTalk ID)", mn: "Зөвлөгөөний тэмдэглэл (KakaoTalk ID)", en: "Counseling Memo (KakaoTalk ID)" },
+        memoLabel: { ko: "■ 정기 상담 메모", vi: "■ Ghi chú tư vấn định kỳ", uz: "■ Doimiy maslahat eslatmasi", mn: "■ Тогтмол зөвлөгөөний тэмдэглэл", en: "■ Regular Counseling Memo" },
+        signLabel: { ko: "서명 (아래 네모 칸에 마우스나 손가락으로 사인해 주세요)", vi: "Chữ ký (Vui lòng ký bằng ngón tay vào ô bên dưới)", uz: "Imzo (Quyidagi maydonga barmog'ingiz bilan imzo cheking)", mn: "Гарын үсэг (Доорх нүдэнд хуруугаараа зурна уу)", en: "Signature (Please sign in the box below)" },
         signClear: { ko: "서명 지우기", vi: "Xóa chữ ký", uz: "Imzoni o'chirish", mn: "Гарын үсэг арилгах", en: "Clear Signature" },
         submitBtn: { ko: "제출하기", vi: "Gửi đi", uz: "Yuborish", mn: "Илгээх", en: "Submit" }
     };
-    // 언어 변경 함수
+
+    // ★ 추가: 현재 선택된 언어를 저장하는 변수 (기본값: 한국어)
+    let currentLangName = "한국어"; 
+
     function changeLanguage(lang, btnElement) {
-        // 버튼 색상 활성화 처리
         document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
         btnElement.classList.add('active');
 
-        // 모든 텍스트 치환
+        // ★ 추가: 언어 코드를 실제 시트에 들어갈 이름으로 변환해서 저장
+        const langMap = { 'ko': '한국어', 'vi': '베트남어', 'uz': '우즈베크어', 'mn': '몽골어', 'en': '영어' };
+        currentLangName = langMap[lang];
+
         document.querySelectorAll('[data-key]').forEach(el => {
             const key = el.getAttribute('data-key');
             const koText = dict[key].ko;
@@ -150,7 +119,6 @@
         });
     }
 
-    // 서명 패드 (Canvas) 설정
     const canvas = document.getElementById('signaturePad');
     const ctx = canvas.getContext('2d');
     let isDrawing = false;
@@ -171,26 +139,11 @@
         return { x: e.clientX - rect.left, y: e.clientY - rect.top };
     }
 
-    function startDrawing(e) {
-        e.preventDefault();
-        isDrawing = true;
-        const coords = getCoordinates(e);
-        ctx.beginPath();
-        ctx.moveTo(coords.x, coords.y);
-    }
-
-    function draw(e) {
-        if (!isDrawing) return;
-        e.preventDefault();
-        const coords = getCoordinates(e);
-        ctx.lineTo(coords.x, coords.y);
-        ctx.stroke();
-    }
-
+    function startDrawing(e) { e.preventDefault(); isDrawing = true; const coords = getCoordinates(e); ctx.beginPath(); ctx.moveTo(coords.x, coords.y); }
+    function draw(e) { if (!isDrawing) return; e.preventDefault(); const coords = getCoordinates(e); ctx.lineTo(coords.x, coords.y); ctx.stroke(); }
     function stopDrawing() { isDrawing = false; }
     function clearSignature() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
 
-    // 폼 제출 처리
     document.getElementById('counselingForm').addEventListener('submit', function(e) {
         e.preventDefault();
 
@@ -198,10 +151,10 @@
             const ele = document.querySelector(`input[name="${name}"]:checked`);
             return ele ? ele.value : "";
         }
-
         const signatureData = canvas.toDataURL(); 
 
         const formData = {
+            language: currentLangName, // ★ 추가: 서버로 언어 정보 같이 보내기
             nameKr: document.getElementById('nameKr').value,
             nameEn: document.getElementById('nameEn').value,
             birthDate: document.getElementById('birthDate').value,
