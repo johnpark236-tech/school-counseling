@@ -76,7 +76,7 @@
 
 <script>
     // 구글 스크립트 웹 앱 URL
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwWF8o1DrrDaFKQgtT23erUc7BjqBgHcg6t18IJ2VM_88i-njuRthauHdvrIR4s4pOA/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwWF8o1DrrDaFKQgtT23erUc7BjqBgHcg6t18IJ2VM_88i-njuRthauHdvrlR4s4pOA/exec";
 
     const dict = {
         title: { ko: "백석어학원 기초상담일지", vi: "Nhật ký tư vấn cơ bản", uz: "Asosiy maslahat jurnali", mn: "Үндсэн зөвлөгөөний тэмдэглэл", en: "Basic Counseling Log" },
@@ -97,14 +97,12 @@
         submitBtn: { ko: "제출하기", vi: "Gửi đi", uz: "Yuborish", mn: "Илгээх", en: "Submit" }
     };
 
-    // ★ 추가: 현재 선택된 언어를 저장하는 변수 (기본값: 한국어)
-    let currentLangName = "한국어"; 
+    let currentLangName = "한국어"; // 기본값 설정
 
     function changeLanguage(lang, btnElement) {
         document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
         btnElement.classList.add('active');
 
-        // ★ 추가: 언어 코드를 실제 시트에 들어갈 이름으로 변환해서 저장
         const langMap = { 'ko': '한국어', 'vi': '베트남어', 'uz': '우즈베크어', 'mn': '몽골어', 'en': '영어' };
         currentLangName = langMap[lang];
 
@@ -154,7 +152,7 @@
         const signatureData = canvas.toDataURL(); 
 
         const formData = {
-            language: currentLangName, // ★ 추가: 서버로 언어 정보 같이 보내기
+            language: currentLangName || "한국어", // ★ 수정: 혹시라도 값이 날아가면 무조건 한국어로 묶어서 보냅니다.
             nameKr: document.getElementById('nameKr').value,
             nameEn: document.getElementById('nameEn').value,
             birthDate: document.getElementById('birthDate').value,
