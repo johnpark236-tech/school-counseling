@@ -63,7 +63,7 @@
             <div class="form-group">
                 <label data-key="birthDate">생년월일 (Date of Birth)</label>
                 <div class="date-wrapper">
-                    <input type="date" id="birthDate" required>
+                    <input type="date" id="birthDate" required onkeydown="return false;" onclick="try{this.showPicker();}catch(e){}" style="cursor: pointer;">
                     <button type="button" class="btn-reset" onclick="document.getElementById('birthDate').value=''" data-key="reset">지우기</button>
                 </div>
             </div>
@@ -178,7 +178,6 @@
     
     let currentLangName = "한국어";
 
-    // 생략되었던 다국어 사전 데이터 완벽 복구
     const dict = {
         title: { ko: "백석어학원 기초상담일지", vi: "Nhật ký tư vấn cơ bản", uz: "Asosiy maslahat jurnali", mn: "Үндсэн зөвлөгөөний тэмдэглэл", en: "Basic Counseling Log" },
         level: { ko: "급 (Level)", vi: "Cấp độ", uz: "Daraja", mn: "Түвшин", en: "Level" },
@@ -252,7 +251,6 @@
         } 
     });
     
-    // 모바일 터치 이벤트
     canvas.addEventListener('touchstart', (e) => {
         e.preventDefault();
         isDrawing = true;
@@ -285,7 +283,6 @@
             return ele ? ele.value : "";
         }
         
-        // '기타' 입력값을 함께 묶어주는 스마트 함수 복구
         const getRadioWithOther = (name, otherId) => {
             const ele = document.querySelector(`input[name="${name}"]:checked`);
             if (!ele) return "";
