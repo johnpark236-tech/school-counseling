@@ -85,24 +85,53 @@
 
     // 번역 데이터 사전
     const dict = {
-        title: { ko: "백석어학원 기초상담일지", vi: "Nhật ký tư vấn cơ bản", uz: "Asosiy maslahat jurnali", mn: "Үндсэн зөвлөгөөний тэмдэглэл", en: "Basic Counseling Log" },
+        title: { 
+            ko: "백석어학원 기초상담일지", 
+            vi: "Nhật ký tư vấn cơ bản", 
+            uz: "Asosiy maslahat jurnali", 
+            mn: "Үндсэн зөвлөгөөний тэмдэглэл", 
+            en: "Basic Counseling Log" 
+        },
         nameKr: { ko: "이름 (한글)", vi: "Tên (tiếng Hàn)", uz: "Ism (Koreys tilida)", mn: "Нэр (Солонгос хэлээр)", en: "Name (Korean)" },
         nameEn: { ko: "이름 (영문)", vi: "Tên (tiếng Anh)", uz: "Ism (Ingliz tilida)", mn: "Нэр (Англиар)", en: "Name (English)" },
         birthDate: { ko: "생년월일", vi: "Ngày sinh", uz: "Tug'ilgan sana", mn: "Төрсөн он сар өдөр", en: "Date of Birth" },
         genderLabel: { ko: "성별:", vi: "Giới tính:", uz: "Jinsi:", mn: "Хүйс:", en: "Gender:" },
         genderMale: { ko: "남자", vi: "Nam", uz: "Erkak", mn: "Эрэгтэй", en: "Male" },
         genderFemale: { ko: "여자", vi: "Nữ", uz: "Ayol", mn: "Эмэгтэй", en: "Female" },
-        country: { ko: "국적 (나라)", vi: "Quốc tịch", uz: "Millati (Davlat)", mn: "Харьяалал (Улс)", en: "Nationality (Country)" },
+        country: { 
+            ko: "국적 (나라)", 
+            vi: "Quốc tịch", 
+            uz: "Millati (Davlat)", 
+            mn: "Иргэншил (Улс)", 
+            en: "Nationality (Country)" 
+        },
         hobby: { ko: "취미", vi: "Sở thích", uz: "Qiziqishlari", mn: "Хобби", en: "Hobby" },
         religion: { ko: "종교", vi: "Tôn giáo", uz: "Dini", mn: "Шашин", en: "Religion" },
         phone: { ko: "전화번호", vi: "Số điện thoại", uz: "Telefon raqami", mn: "Утасны дугаар", en: "Phone Number" },
-        kakao: { ko: "KakaoTalk ID", vi: "Ghi chú tư vấn (KakaoTalk ID)", uz: "Maslahat eslatmasi (KakaoTalk ID)", mn: "Зөвлөгөөний тэмдэглэл (KakaoTalk ID)", en: "Counseling Memo (KakaoTalk ID)" },
-        memoLabel: { ko: "■ 상담 메모", vi: "■ Ghi chú tư vấn định kỳ", uz: "■ Doimiy maslahat eslatmasi", mn: "■ Тогтмол зөвлөгөөний тэмдэглэл", en: "■ Regular Counseling Memo" },
-        signLabel: { ko: "서명 (아래 네모 칸에 마우스나 손가락으로 사인해 주세요)", vi: "Chữ ký (Vui lòng ký bằng ngón tay vào ô bên dưới)", uz: "Imzo (Quyidagi maydonga barmog'ingiz bilan imzo cheking)", mn: "Гарын үсэг (Доорх нүдэнд хуруугаараа зурна уу)", en: "Signature (Please sign in the box below)" },
+        kakao: { 
+            ko: "KakaoTalk ID", 
+            vi: "KakaoTalk ID", 
+            uz: "KakaoTalk ID", 
+            mn: "KakaoTalk ID", 
+            en: "KakaoTalk ID" 
+        },
+        memoLabel: { 
+            ko: "■ 상담 메모", 
+            vi: "■ Ghi chú tư vấn", 
+            uz: "■ Maslahat eslatmasi", 
+            mn: "■ Зөвлөгөөний тэмдэглэл", 
+            en: "■ Counseling Memo" 
+        },
+        signLabel: { 
+            ko: "서명 (아래 네모 칸에 마우스나 손가락으로 사인해 주세요)", 
+            vi: "Chữ ký (Vui lòng dùng chuột hoặc ngón tay để ký vào ô bên dưới)", 
+            uz: "Imzo (Quyidagi maydonga sichqoncha yoki barmog'ingiz bilan imzo cheking)", 
+            mn: "Гарын үсэг (Доорх нүдэнд хулгана эсвэл хуруугаараа зурна уу)", 
+            en: "Signature (Please sign in the box below using your mouse or finger)" 
+        },
         signClear: { ko: "서명 지우기", vi: "Xóa chữ ký", uz: "Imzoni o'chirish", mn: "Гарын үсэг арилгах", en: "Clear Signature" },
         submitBtn: { ko: "제출하기", vi: "Gửi đi", uz: "Yuborish", mn: "Илгээх", en: "Submit" }
     };
-
     // 언어 변경 함수
     function changeLanguage(lang, btnElement) {
         // 버튼 색상 활성화 처리
